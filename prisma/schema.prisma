@@ -16,7 +16,9 @@ model Pessoa {
   id        String         @id @default(uuid())
   nome      String         
   email     String         @unique
-  telefone  String         
+  senha     String
+  telefone  String
+  cargo     String         @default("USER")
   descricao String?       
   ofertas   Conhecimento[]
 }
@@ -28,5 +30,5 @@ model Conhecimento {
   categoria   String   
   nivel       String   
   pessoa_id   String   
-  responsavel Pessoa   @relation(fields: [pessoa_id], references: [id])
+  responsavel Pessoa   @relation(fields: [pessoa_id], references: [id], onDelete: Cascade)
 }
