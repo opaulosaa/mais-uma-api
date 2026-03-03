@@ -1,10 +1,17 @@
 const express = require('express');
+const cors = require('cors');
 const { verificarToken } = require('./middlewares/auth'); 
 const PessoaController = require('./controllers/pessoaController');
 const ConhecimentoController = require('./controllers/conhecimentoController');
 
 const app = express();
 app.use(express.json());
+
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:8080';
+app.use(cors({
+	origin: FRONTEND_URL,
+	credentials: true,
+}));
 
 app.post('/pessoas', (req, res) => PessoaController.cadastrar(req, res));
 app.post('/login', (req, res) => PessoaController.login(req, res));
